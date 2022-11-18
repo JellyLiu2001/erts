@@ -78,7 +78,7 @@ void BumpEdgeTrigger_Init(void){
 }
 
 // Uses P4IV IRQ handler to solve critical section/race
-void PORT4_IRQHandler(void){
+void PORT4_IRQHandler(void){//interupt
 
     uint8_t status;
 
