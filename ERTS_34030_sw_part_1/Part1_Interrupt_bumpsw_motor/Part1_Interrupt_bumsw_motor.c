@@ -250,7 +250,7 @@ uint8_t Bump_Read_Input(void){
 void checkbumpswitch(uint8_t status)
 {
     switch(status){
-    case 0x02: // Bump switch 1
+    case 0x6D: // Bump switch 1
 
         Port2_Output(GREEN);// Change the coloured LED into green (backward)
 
@@ -269,7 +269,7 @@ void checkbumpswitch(uint8_t status)
         Motor_StopSimple(1000);// Stop for 1000ms
 
         break;
-    case 0x06: // Bump switch 2
+    case 0xAD: // Bump switch 2
 
         Port2_Output(GREEN);// Change the coloured LED into green (backward)
 
@@ -288,7 +288,7 @@ void checkbumpswitch(uint8_t status)
         Motor_StopSimple(1000);// Stop for 1000ms
 
         break;
-    case 0x08: // Bump switch 3
+    case 0xCD: // Bump switch 3
 
         Port2_Output(GREEN);// Change the coloured LED into green (backward)
 
@@ -307,7 +307,7 @@ void checkbumpswitch(uint8_t status)
         Motor_StopSimple(1000);// Stop for 1000ms
 
         break;
-    case 0x0c: // Bump switch 4
+    case 0xE5: // Bump switch 4
 
         Port2_Output(GREEN);// Change the coloured LED into green (backward)
 
@@ -326,7 +326,7 @@ void checkbumpswitch(uint8_t status)
         Motor_StopSimple(1000);// Stop for 1000ms
 
         break;
-    case 0x0e: // Bump switch 5
+    case 0xE9: // Bump switch 5
 
         Port2_Output(GREEN);// Change the coloured LED into green (backward)
 
@@ -345,7 +345,7 @@ void checkbumpswitch(uint8_t status)
         Motor_StopSimple(1000);// Stop for 1000ms
 
         break;
-    case 0x10: // Bump switch 6
+    case 0xEC: // Bump switch 6
 
         Port2_Output(GREEN);// Change the coloured LED into green (backward)
 
