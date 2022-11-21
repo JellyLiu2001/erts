@@ -81,7 +81,7 @@ void Motor_ForwardSimple(uint16_t duty, uint32_t time_ms){
               P2 -> OUT |= 0xC0;
               SysTick_Wait1us(10*duty);
               P2->OUT &= ~0xC0;
-              SysTick_Wait1us(10*L);
+              SysTick_Wait1us(L);
               SysTick_Wait1us(1000);
           }
 	/*
@@ -135,7 +135,7 @@ void Motor_BackwardSimple(uint16_t duty, uint32_t time_ms){
            P2 -> OUT |= 0xC0;
            SysTick_Wait1us(10*duty);
            P2-> OUT &= ~0xC0;
-           SysTick_Wait1us(10*L);
+           SysTick_Wait1us(L);
            SysTick_Wait1us(1000);
                 }
 	/*
@@ -190,7 +190,7 @@ void Motor_RightSimple(uint16_t duty, uint32_t time_ms){
         P2 -> OUT |= 0x40;
         SysTick_Wait1us(10*duty);
         P2->OUT &= ~0x40;
-        SysTick_Wait1us(10*L);
+        SysTick_Wait1us(L);
         SysTick_Wait1us(1000);
     }
 
@@ -245,7 +245,7 @@ void Motor_LeftSimple(uint16_t duty, uint32_t time_ms){
             P2 -> OUT |= 0x80;
             SysTick_Wait1us(10*duty);
             P2->OUT &= ~0x80;
-            SysTick_Wait1us(10*L);
+            SysTick_Wait1us(L);
             SysTick_Wait1us(1000);
     }	/*
 	  Section: mtr_dir_rgt
