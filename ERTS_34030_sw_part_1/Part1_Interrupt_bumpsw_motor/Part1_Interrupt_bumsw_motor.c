@@ -31,7 +31,6 @@ policies, either expressed or implied, of the FreeBSD Project.
 
 #include <stdint.h>
 #include "msp.h"
-
 // Check these if you really need to include these libraries in your code
 /*
 #include "../inc/Clock.h"
@@ -57,7 +56,7 @@ policies, either expressed or implied, of the FreeBSD Project.
 #define SKYBLUE   0x06
 #define WHITE     0x07
 
-
+int switch_mode = 0;
 // Initialize Bump sensors using interrupt
 // Make six from Port 4 input pins
 // Activate interface pull-up
