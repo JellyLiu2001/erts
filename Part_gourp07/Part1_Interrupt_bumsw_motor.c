@@ -272,7 +272,7 @@ void PORT4_IRQHandler(void){//interupt
           break;
       }
 
-      P4->IFG &= ~0xED; // clear flag
+     P4->IFG &= ~0xED; // clear flag
 }
 
 // Read current state of 6 switches
@@ -283,6 +283,7 @@ void PORT4_IRQHandler(void){//interupt
 // bit 2 Bump2
 // bit 1 Bump1
 // bit 0 Bump0
+
 uint8_t Bump_Read_Input(void){
   return (P4->IN&0xED); // read P4.7, 4.6, 4.5, 4.3, 4.2, 4.0 inputs
 }
@@ -294,8 +295,11 @@ uint8_t Bump_Read_Input(void){
 //              1) the polling method is only useful for small program
 //              2) the input mask in switch case (for polling method) is DIFFERENT from the 
 //                 Nested Vectored Interrupt Controller (NVIC) which used in interrupt method.
-void checkbumpswitch(uint8_t status)
+
+void checkbumpswitch(uint8_t status)//polling
 {
+
+
     switch(status){
     case 0x6D: // Bump switch 1
       if(mode=2){
@@ -315,7 +319,7 @@ void checkbumpswitch(uint8_t status)
 
         Motor_StopSimple(100);// Stop for 1000ms
       }
-      if (mode=1){
+      else if (mode=1){
           while(1){
           Motor_StopSimple(100);
           }
@@ -340,7 +344,7 @@ void checkbumpswitch(uint8_t status)
 
         Motor_StopSimple(100);// Stop for 1000ms
         }
-        if (mode=1){
+        else if (mode=1){
                   while(1){
                   Motor_StopSimple(100);
                   }
@@ -365,7 +369,7 @@ void checkbumpswitch(uint8_t status)
 
         Motor_StopSimple(100);// Stop for 1000ms
         }
-        if (mode=1){
+        else if (mode=1){
                          while(1){
                          Motor_StopSimple(100);
                          }
@@ -391,7 +395,7 @@ void checkbumpswitch(uint8_t status)
 
         Motor_StopSimple(100);// Stop for 1000ms
         }
-        if (mode=1){
+        else if (mode=1){
                          while(1){
                          Motor_StopSimple(100);
                          }
@@ -417,7 +421,7 @@ void checkbumpswitch(uint8_t status)
 
         Motor_StopSimple(100);// Stop for 1000ms
         }
-        if (mode=1){
+        else if (mode=1){
                          while(1){
                          Motor_StopSimple(100);
                          }
@@ -443,7 +447,7 @@ void checkbumpswitch(uint8_t status)
 
         Motor_StopSimple(0);// Stop for 1000ms
         }
-        if (mode=1){
+        else if (mode=1){
                          while(1){
                          Motor_StopSimple(100);
                          }
@@ -506,6 +510,7 @@ int main(void){
   }
 __no_operation();
 
+
 /*interrupt  mode
 
 if (SW1IN==1)
@@ -543,6 +548,7 @@ if(SW2IN==1)
 }
 
 */
+//
 
 //polling mode
 
@@ -550,13 +556,14 @@ if(SW2IN==1)
 if (SW1IN==1)
 {
   mode=1;
+  DisableInterrupts();
   REDLED = 0;               // Turn off the red LED
   BumpEdgeTrigger_Init();   // Initialise bump switches using edge interrupt
   Port2_Init();             // Initialise P2.2-P2.0 built-in LEDs
   Port2_Output(WHITE);      // White is the colour to represent moving forward
   Motor_InitSimple();       // Initialise DC Motor
   Motor_StopSimple(100);    // Stop the motor on initial state
-  DisableInterrupts();       // Clear the I bit
+        // Clear the I bit
   while(1){
   Motor_ForwardSimple(500,100);
   Motor_StopSimple(20);
@@ -565,7 +572,7 @@ if (SW1IN==1)
   status = Bump_Read_Input();
   if (status == 0x6D || status == 0xAD || status == 0xCD || status == 0xE5 || status == 0xE9 || status == 0xEC) {
              checkbumpswitch(status);
-             break;
+
          }
 
      }
@@ -574,18 +581,19 @@ if (SW1IN==1)
 if(SW2IN==1)
 {
     mode=2;
+    DisableInterrupts();
     REDLED=0;
     BumpEdgeTrigger_Init();   // Initialise bump switches using edge interrupt
     Port2_Init();             // Initialise P2.2-P2.0 built-in LEDs
     Port2_Output(WHITE);      // White is the colour to represent moving forward
     Motor_InitSimple();       // Initialise DC Motor
     Motor_StopSimple(100);    // Stop the motor on initial state
-    DisableInterrupts();       // Clear the I bit
+         // Clear the I bit
     while(1){
     Motor_ForwardSimple(500,10);
     if (status == 0x6D || status == 0xAD || status == 0xCD || status == 0xE5 || status == 0xE9 || status == 0xEC) {
                  checkbumpswitch(status);
-                 break;
+                 //break;
 
   }
     }

@@ -176,20 +176,20 @@ void Motor_BackwardSimple(uint16_t duty, uint32_t time_ms){
 	  
 }
 
-void Motor_LeftSimple(uint16_t duty, uint32_t time_ms){
+void Motor_RightSimple(uint16_t duty, uint32_t time_ms){
 
     uint32_t i; // this i is used for the 'for loop' in section mtr_pwm_loop
     uint16_t L;
 
 	// The PWM has high (H) and low (L) cycle.
     L = 1000-duty; // PWM using H and L
-    P1 -> DIR |= 0x80;
-    P1 -> OUT |= 0x80;
+    P1 -> DIR |= 0x40;
+    P1 -> OUT |= 0x40;
     for(i = 0; i < time_ms; i++)
     {
-        P2 -> OUT |= 0x80;
+        P2 -> OUT |= 0x40;
         SysTick_Wait1us(10*duty);
-        P2->OUT &= ~0x80;
+        P2->OUT &= ~0x40;
         SysTick_Wait1us(10*L);
         SysTick_Wait1us(1000);
     }
@@ -231,15 +231,15 @@ void Motor_LeftSimple(uint16_t duty, uint32_t time_ms){
 	  // (4) wait for 1ms using SysTick_Wait
 	
 }
-void Motor_RightSimple(uint16_t duty, uint32_t time_ms){
+void Motor_LeftSimple(uint16_t duty, uint32_t time_ms){
 
     uint32_t i; // this i is used for the 'for loop' in section mtr_pwm_loop
     uint16_t L;
 
 	// The PWM has high (H) and low (L) cycle.
     L = 1000-duty; // PWM using H and L
-    P1 -> DIR |= ~0x80;
-    P1 -> OUT |= ~0x80;
+    P1 -> DIR |= 0x80;
+    P1 -> OUT |= 0x80;
     for(i = 0; i < time_ms; i++)
     {
             P2 -> OUT |= 0x80;
