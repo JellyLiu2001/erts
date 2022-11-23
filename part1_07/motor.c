@@ -74,15 +74,7 @@ void Motor_ForwardSimple(uint16_t duty, uint32_t time_ms){
 
 	// The PWM has high (H) and low (L) cycle.
     L = 1000-duty; // PWM using H and L
-    P1 -> DIR |= 0xC0;
-    P3 -> OUT |= 0xC0;
-          for(i = 0; i < time_ms; i++)
-          {
-              P2 -> OUT |= 0xC0;
-              SysTick_Wait(0.01*duty);
-              P2->OUT &= ~0xC0;
-              SysTick_Wait(0.01*L);
-          }
+	
 	/*
 	  Section: mtr_dir_fwd
 	  Description: this section is used to perform forward direction of motors
@@ -113,6 +105,7 @@ void Motor_ForwardSimple(uint16_t duty, uint32_t time_ms){
 	  // (2) wait for 1us for the duty
 	  
       // turn of the PWM of both motors
+	  P2->OUT &= ~0xC0; 
 	  
       // (3) wait for 1us for another cycle from the duty
 	  
@@ -128,14 +121,7 @@ void Motor_BackwardSimple(uint16_t duty, uint32_t time_ms){
 	// The PWM has high (H) and low (L) cycle.
     L = 1000-duty; // PWM using H and L
 		
-    P1 -> DIR |= ~0xC0;
-          P3 -> OUT |= ~0xC0;
-          for(i = 0; i < time_ms; i++){
-                    P2 -> OUT |= 0xC0;
-                    SysTick_Wait(0.01*duty);
-                    P2->OUT &= ~0xC0;
-                    SysTick_Wait(0.01*L);
-                }
+	
 	/*
 	  Section: mtr_dir_bwd
 	  Description: this section is used to perform backward direction of motors
@@ -166,7 +152,7 @@ void Motor_BackwardSimple(uint16_t duty, uint32_t time_ms){
 	  // (2) wait for 1us for the duty
 	  
       // turn of the PWM of both motors
-	  
+	  P2->OUT &= ~0xC0; 
 	  
       // (3) wait for 1us for another cycle from the duty
 	  
@@ -181,17 +167,7 @@ void Motor_LeftSimple(uint16_t duty, uint32_t time_ms){
 
 	// The PWM has high (H) and low (L) cycle.
     L = 1000-duty; // PWM using H and L
-    P1 -> DIR |= 0x40;
-    P3 -> OUT |= 0x40;
-    for(i = 0; i < time_ms; i++)
-    {
-        P2 -> OUT |= 0x40;
-        SysTick_Wait(0.01*duty);
-        P2->OUT &= ~0x40;
-        SysTick_Wait(0.01*L);
-    }
-
-
+	
 	/*
 	  Section: mtr_dir_lft
 	  Description: this section is used to turn left of motors
@@ -222,6 +198,7 @@ void Motor_LeftSimple(uint16_t duty, uint32_t time_ms){
 	  // (2) wait for 1us for the duty
 	  
       // turn of the PWM of both motors
+	  P2->OUT &= ~0xC0; 
 	  
       // (3) wait for 1us for another cycle from the duty
 	  
@@ -235,15 +212,8 @@ void Motor_RightSimple(uint16_t duty, uint32_t time_ms){
 
 	// The PWM has high (H) and low (L) cycle.
     L = 1000-duty; // PWM using H and L
-    P1 -> DIR |= 0x80;
-    P3 -> OUT |= 0x80;
-    for(i = 0; i < time_ms; i++)
-    {
-            P2 -> OUT |= 0x80;
-            SysTick_Wait(0.01*duty);
-            P2->OUT &= ~0x80;
-            SysTick_Wait(0.01*L);
-    }	/*
+	
+	/*
 	  Section: mtr_dir_rgt
 	  Description: this section is used to turn right of motors
 	  Port & pin : direction of the left and right motors
@@ -273,6 +243,7 @@ void Motor_RightSimple(uint16_t duty, uint32_t time_ms){
 	  // (2) wait for 1us for the duty
 	  
       // turn of the PWM of both motors
+	  P2->OUT &= ~0xC0; 
 	  
       // (3) wait for 1us for another cycle from the duty
 	  
