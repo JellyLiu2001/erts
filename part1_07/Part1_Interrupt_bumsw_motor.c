@@ -520,7 +520,9 @@ int main(void){
       SysTick_Wait10ms(10); // Wait here for every 100ms
       REDLED = !REDLED;     // The red LED is blinking waiting for command
   }
-//__no_operation();
+
+  //EnableInterrupts();
+  __no_operation();
 
 //-------------------------------------mode switch-----------------------------------
 while(1)//test tomorrow to delay this while
@@ -602,8 +604,8 @@ while(1)
 
 
 //-------------------------------------------polling mode----------------------------------------------------
-//while(1)
-//{
+while(1)
+{
     if(switch_mode==2)
     {
         Port2_Output(GREEN);
@@ -679,7 +681,8 @@ while(1)
         }
     }
     }
-   }
+    }
+}
 }
 
     // This section is used for Example 1 (seciton 5.8.1)
