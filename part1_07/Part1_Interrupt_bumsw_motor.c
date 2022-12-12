@@ -61,8 +61,6 @@ policies, either expressed or implied, of the FreeBSD Project.
 #define REDLED (*((volatile uint8_t *)(0x42098040)))    // output: red LED
 int mode=0;
 int switch_mode=0;
-int inter_mode=0;
-int polling_mode;
 // Initialize Bump sensors using interrupt
 // Make six from Port 4 input pins
 // Activate interface pull-up
@@ -564,7 +562,6 @@ while(1)
         mode=1;
         REDLED = 0;               // Turn off the red LED
         BumpEdgeTrigger_Init();   // Initialise bump switches using edge interrupt
-        //Port2_Init();             // Initialise P2.2-P2.0 built-in LEDs
         Motor_InitSimple();       // Initialise DC Motor
         Motor_StopSimple(100);    // Stop the motor on initial state
 
@@ -580,15 +577,11 @@ while(1)
         if (SW2IN==1)
         {
             Port2_Output(YELLOW);
-            inter_mode=4;
-            //Port2_Init();             // Initialise P2.2-P2.0 built-in LEDs
             Motor_InitSimple();       // Initialise DC Motor
             Motor_StopSimple(100);    // Stop the motor on initial state
-            //Port2_Output(YELLOW);
             mode=2;
             REDLED=0;
             BumpEdgeTrigger_Init();   // Initialise bump switches using edge interrupt
-            //Port2_Init();             // Initialise P2.2-P2.0 built-in LEDs
             Motor_InitSimple();       // Initialise DC Motor
             Motor_StopSimple(100);    // Stop the motor on initial state
             EnableInterrupts();       // Clear the I bit
@@ -613,7 +606,6 @@ while(1)
         Motor_StopSimple(100);    // Stop the motor on initial state
     if (SW1IN==1)
     {
-        polling_mode=3;
         Port2_Init();             // Initialise P2.2-P2.0 built-in LEDs
         Motor_InitSimple();       // Initialise DC Motor
         Motor_StopSimple(100);    // Stop the motor on initial state
@@ -657,7 +649,6 @@ while(1)
 
     if(SW2IN==1)
     {
-        polling_mode=4;
         Port2_Init();             // Initialise P2.2-P2.0 built-in LEDs
         Motor_InitSimple();       // Initialise DC Motor
         Motor_StopSimple(100);    // Stop the motor on initial state
