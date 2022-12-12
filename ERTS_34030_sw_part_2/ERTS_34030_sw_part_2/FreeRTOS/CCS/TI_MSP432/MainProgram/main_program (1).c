@@ -267,17 +267,16 @@ static void taskReadInputSwitch( void *pvParameters ){
             REDLED = 1;     // turn on the red LED
             // TODO: suspend the task taskHandle_PlaySong
             vTaskSuspend(taskHandle_PlaySong);
-            vTaskSuspend(taskHandle_dcMotor);
+            vTaskSuspend(taskpollingdcMotor);
             vTaskPriorityset(taskHandle_PlaySong,2);
             vTaskPriorityset(taskHandle_InputSwitch,2);
             delay_ms(1000);
             mode = 3;
-            for (i = 0; i < 1000000; i++);
         }
         else if (i_SW1==1 && mode == 3)//running in priority 2
         {
             vTaskResume(taskHandle_PlaySong);
-            vTaskResume(taskHandle_dcMotor);
+            vTaskResume(taskpollingdcMotor);
             delay_ms(1000);
             mode = 5;
         }
